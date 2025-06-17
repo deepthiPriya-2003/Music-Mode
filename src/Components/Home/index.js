@@ -16,9 +16,9 @@ class Home extends Component{
       getTracks=async ()=>{ 
         const {userInput}=this.state 
         let data = await fetch(`https://v1.nocodeapi.com/deepthi11priya/spotify/EaBHsoOrjbptxBPe/search?q=${userInput}&type=track`) 
+        console.log(data)
         let response = await data.json() 
         console.log(response)
-        //console.log(a)
         let tracksData = await response.tracks.items 
         console.log(tracksData)
         this.setState({setTracks:tracksData})
@@ -33,7 +33,7 @@ class Home extends Component{
       } 
 
 
-      onSubmitSong=async (event)=>{ 
+      onSubmitSong = async(event)=>{ 
         event.preventDefault() 
         
         this.getTracks()
@@ -43,10 +43,8 @@ class Home extends Component{
       
     
       render() {
-        const { setTracks, userInput} = this.state;
-        console.log(userInput)
-        const moods = ["happy", "sad", "chill", "energetic"];
-         console.log(setTracks)
+        const {setTracks} = this.state;
+        console.log(setTracks)
         return (
           <div style={{ textAlign: "center", padding: "20px" }} className="bg-container">
             
@@ -55,9 +53,9 @@ class Home extends Component{
             <div className="container-fluid bg-nav-styling">
               <form className="d-flex " role="search" onSubmit={this.onSubmitSong}>
               <div>
-            <img src="https://res.cloudinary.com/dpj5lzzyz/image/upload/v1744877462/WhatsApp_Image_2025-04-17_at_13.38.18_6a98adb5_gqmhnz.jpg"  className="logo-styling" />
+            <img src="https://res.cloudinary.com/dpj5lzzyz/image/upload/v1744877462/WhatsApp_Image_2025-04-17_at_13.38.18_6a98adb5_gqmhnz.jpg"  className="logo-styling" alt="logo" />
             </div>
-                  <input className="form-control me-2 search-input" type="search" placeholder="Search" aria-label="Search" onChange={this.onChangeInput} />
+                  <input className="form-control me-2 search-input" type="search" placeholder="Search for songs or artists..." aria-label="Search" onChange={this.onChangeInput} />
                   <button className="btn btn-outline-success search-btn" type="submit">Search</button>
                  </form>
                </div>
@@ -68,7 +66,7 @@ class Home extends Component{
                 return ( 
                   <div className="col py-2 " key={each.album.id} >
                   <div className="card" style={{ width: "18rem"}}   >
-                    <img src={each.album.images[0].url} className="rounded"/>
+                    <img src={each.album.images[0].url} className="rounded" alt="song-image" />
                    <div className="card-body">
                    <h5 className="card-title">{each.name}</h5>
                    <p className="card-text">Artist: {each.artists[0].name}</p>
@@ -79,7 +77,8 @@ class Home extends Component{
                   
                 )
                 
-              })}
+              })
+            }
               
             </div> 
            
